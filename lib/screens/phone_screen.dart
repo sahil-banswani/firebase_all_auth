@@ -19,7 +19,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
 
   void phoneSignIn() {
-    FirebaseAuthMethods(auth: FirebaseAuth.instance).phoneSignIn(context, phoneNumberController.text);
+    FirebaseAuthMethods(auth: FirebaseAuth.instance).phoneOTPSignIn(phoneNumberController.text);
   }
 
   @override
@@ -34,8 +34,13 @@ class _PhoneScreenState extends State<PhoneScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              height: 150,
+              width: 150,
+              child: Image.asset('lib/assets/images/img1.png',)),
+            const SizedBox(height: 40,),
             const Text(
-              'Phone Number',
+              'Phone Verification',
               style: TextStyle(fontSize: 30),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
