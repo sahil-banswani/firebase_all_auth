@@ -103,9 +103,24 @@ class FirebaseAuthMethods {
   Future<void> phoneOTPSignIn(String text) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '+91 + $text',
-      verificationCompleted: (PhoneAuthCredential credential) {},
-      verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) {},
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+    // Update the UI - wait for the user to enter the SMS code
+    String smsCode = 'xxxx';
+
+    // Create a PhoneAuthCredential with the code
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+
+    // Sign the user in (or link) with the credential
+    await auth.signInWithCredential(credential);
+  },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
   }

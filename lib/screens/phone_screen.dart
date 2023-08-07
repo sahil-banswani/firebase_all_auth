@@ -19,7 +19,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
 
   void phoneSignIn() {
-    FirebaseAuthMethods(auth: FirebaseAuth.instance).phoneOTPSignIn(phoneNumberController.text);
+    FirebaseAuthMethods(auth: FirebaseAuth.instance).phoneOTPSignIn(phoneNumberController.text); 
   }
 
   @override
